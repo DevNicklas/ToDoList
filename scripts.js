@@ -82,6 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Event listener for marking tasks as completed or uncompleted
+    taskList.addEventListener('change', function(event) {
+        if (event.target.classList.contains('taskCheckbox')) {
+            const task = event.target.closest('.task');
+            task.classList.toggle('completed');
+        }
+    });
 });
 
 // Function to create a new task
@@ -108,11 +116,21 @@ function createTask(title, description, deadline) {
     editBtn.textContent = '✏️';
     editBtn.classList.add('editBtn');
 
+    const taskCheckbox = document.createElement('input');
+    taskCheckbox.type = 'checkbox';
+    taskCheckbox.classList.add('taskCheckbox');
+
+    const taskLabel = document.createElement('label');
+    taskLabel.textContent = 'Færdiggør';
+    taskLabel.setAttribute('for', 'taskCheckbox');
+
     task.appendChild(taskTitle);
     task.appendChild(taskDescription);
     task.appendChild(taskDeadline);
     task.appendChild(deleteBtn);
     task.appendChild(editBtn);
+    task.appendChild(taskLabel);
+    task.appendChild(taskCheckbox);
 
     taskList.appendChild(task);
 }
